@@ -5,7 +5,6 @@ function findLongestSubstring(str: string): number {
 
     for (let i = 0; i < str.length; i ++) {
         let value = str[i];
-
         if (seenChar[value]) {
             start = Math.max(start, seenChar[value])
         }
@@ -17,6 +16,7 @@ function findLongestSubstring(str: string): number {
     
     return total;
 }
+
 console.log(
     findLongestSubstring(""), // 0
     findLongestSubstring("rithmschool"), // 7
