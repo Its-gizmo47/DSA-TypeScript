@@ -1,30 +1,37 @@
-function maxSubarraySum(arr: number[], total: number): null|number {
-    if (arr.length < total) {
-        return null
-    }
-    let max = 0
+function minSubArrayLen(arr: number[], sum: number): number {
+    let total = 0
+    let left = 0
+    let right = 0
+    let minLength = Infinity
 
-    for (let i = 0; i < total; i++) {
-        max += arr[i];
-    }
-
-    let temp = max;
-    for (let i = total; i < arr.length; i++) {
-        temp = temp - arr[i - total] + arr[i] 
-        if (temp > max) {
-            max = temp
+    while (left < arr.length) {
+        if (total < sum && right < arr.length) {
+            total += arr[right]
+            right++
+        } else if (total >= sum) {
+            console.log(
+                "here",
+                minLength,
+                right,
+                left,
+                Math.min(minLength, right - left)
+            )
+            minLength = Math.min(minLength, right - left)
+            total -= arr[left]
+            left++
+        } else {
+            break
         }
     }
 
-
-    return max;
+    return minLength === Infinity ? 0 : minLength
 }
 console.log(
-
-    maxSubarraySum([100,200,300,400], 2), // 700
-    maxSubarraySum([1,4,2,10,23,3,1,0,20], 4),  // 39 
-    maxSubarraySum([-3,4,0,-2,6,-1], 2), // 5
-    maxSubarraySum([3,-2,7,-4,1,-1,4,-2,1],2), // 5
-    maxSubarraySum([2,3], 3), // null
-    
+    minSubArrayLen([2, 3, 1, 2, 4, 3], 7), // 2 -> because [4,3] is the smallest subarray
+    minSubArrayLen([2, 1, 6, 5, 4], 9), // 2 -> because [5,4] is the smallest subarray
+    minSubArrayLen([3, 1, 7, 11, 2, 9, 8, 21, 62, 33, 19], 52), // 1 -> because [62] is greater than 52
+    minSubArrayLen([1, 4, 16, 22, 5, 7, 8, 9, 10], 39), // 3
+    minSubArrayLen([1, 4, 16, 22, 5, 7, 8, 9, 10], 55), // 5
+    minSubArrayLen([4, 3, 3, 8, 1, 2, 3], 11), // 2
+    minSubArrayLen([1, 4, 16, 22, 5, 7, 8, 9, 10], 95) // 0
 )
