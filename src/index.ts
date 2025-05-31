@@ -1,16 +1,21 @@
-function findAllDuplicates(arr: number[]): undefined|number[] {
-    let counter1: Record<string, number> = {}
-    let queue: number[] = [];
+function averagePair(arr: number[], avg: number): boolean {
 
-    for (let value of arr) {
-        if (undefined === counter1[value]) {
-            counter1[value] = 1;
+    let left = 0;
+    let right = arr.length - 1;
+
+    while (left < right) {
+        console.log(arr[right], arr[left])
+        let average = arr[left] + arr[right] / 2;
+        if (average === avg) {
+            return true;
+        } else if (average < avg) {
+            left++
         } else {
-            queue.push(value)
+            right--
         }
     }
 
-    return queue
+    return false
 }
 
-console.log(findAllDuplicates([1, 1, 2, 3, 4, 4, 1]))
+console.log(averagePair([1,3,3,5,6,7,10,12,19],8))
