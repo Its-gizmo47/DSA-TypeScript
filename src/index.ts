@@ -4,13 +4,14 @@ function test(...args: string[]): boolean {
     }
 
     let left = 0;
-    for (let i = 1; i < args.length; i++) {
-        console.log(args[left], args[i]);
-        if (args[left] === args[i]) {
-            return true;
-        } else {
-            left++;
+    let first = 1;
+
+    while (first < args.length) {
+        console.log(first, left)
+        if (args[left] === args[first]) {
+            return true
         }
+        first++
     }
     
 
