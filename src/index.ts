@@ -1,21 +1,31 @@
-function test(...args: string[]): boolean {
-    if (args.length < 2) {
+function test(num1: number, num2: number): boolean {
+    let first: string = num1.toString()
+    let sec: string = num2.toString()
+
+    if (first.length !== sec.length) {
         return false
     }
 
-    let left = 0;
-    let first = 1;
+    let counter1: Record<string, number> = {}
+    let counter2: Record<string, number> = {}
 
-    while (first < args.length) {
-        console.log(first, left)
-        if (args[left] === args[first]) {
-            return true
-        }
-        first++
+    for (let value of first) {
+        counter1[value] = ++counter1[value] || 1
     }
-    
+    for (let value of sec) {
+        counter2[value] = ++counter2[value] || 1
+    }
 
-    return false
+    for (let key in counter1) {
+        if (!(key in counter2)) {
+            return false;
+        }
+        if (counter1[key] !== counter2[key]) {
+            return false
+        }
+    }
+
+    return true
 }
 
-console.log(test('1', '2', '4', "6"))
+console.log(test(3589578, 5879385))
