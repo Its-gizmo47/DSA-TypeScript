@@ -1,14 +1,22 @@
-function isSubsequenceRecursion(str1: string, str2: string): boolean {
-    console.log(str1, str2)
-    if (str1.length === 0) return true
-    if (str2.length === 0) return false
+function findPair(arr: number[], diff: number): boolean {
+    arr.sort((a, b) => a - b)
+    let i = 0
+    let j = 1
 
-    let str2Splice = str2.slice(1)
-    if (str1[0] === str2[0]) {
-        return isSubsequenceRecursion(str1.slice(1), str2Splice)
+    while (i < arr.length && j < arr.length) {
+        
+        let difference = arr[j] - arr[i];
+        console.log(i, arr[i], arr[j], difference)
+        if (Math.abs(difference) === Math.abs(diff)) {
+            return true;
+        } else if (difference < diff) {
+            j++;
+        } else {
+            i++
+        }
     }
 
-    return isSubsequenceRecursion(str1, str2Splice)
+    return false
 }
 
-console.log(isSubsequenceRecursion("heallo", "hello there"))
+console.log(findPair([6,1,4,10,2,4], 2))
