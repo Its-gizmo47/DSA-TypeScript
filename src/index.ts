@@ -1,37 +1,28 @@
-function minSubArrayLen(arr: number[], sum: number): number {
+function findLongestSubstring(str: string): number {
     let total = 0
-    let left = 0
-    let right = 0
-    let minLength = Infinity
+    let seenChar: Record<string, number> = {}
+    let start = 0
 
-    while (left < arr.length) {
-        if (total < sum && right < arr.length) {
-            total += arr[right]
-            right++
-        } else if (total >= sum) {
-            console.log(
-                "here",
-                minLength,
-                right,
-                left,
-                Math.min(minLength, right - left)
-            )
-            minLength = Math.min(minLength, right - left)
-            total -= arr[left]
-            left++
-        } else {
-            break
+    for (let i = 0; i < str.length; i ++) {
+        let value = str[i];
+
+        if (seenChar[value]) {
+            start = Math.max(start, seenChar[value])
         }
-    }
 
-    return minLength === Infinity ? 0 : minLength
+        total = Math.max(total, i - start + 1)
+
+        seenChar[value] = i + 1;
+    }
+    
+    return total;
 }
 console.log(
-    minSubArrayLen([2, 3, 1, 2, 4, 3], 7), // 2 -> because [4,3] is the smallest subarray
-    minSubArrayLen([2, 1, 6, 5, 4], 9), // 2 -> because [5,4] is the smallest subarray
-    minSubArrayLen([3, 1, 7, 11, 2, 9, 8, 21, 62, 33, 19], 52), // 1 -> because [62] is greater than 52
-    minSubArrayLen([1, 4, 16, 22, 5, 7, 8, 9, 10], 39), // 3
-    minSubArrayLen([1, 4, 16, 22, 5, 7, 8, 9, 10], 55), // 5
-    minSubArrayLen([4, 3, 3, 8, 1, 2, 3], 11), // 2
-    minSubArrayLen([1, 4, 16, 22, 5, 7, 8, 9, 10], 95) // 0
+    findLongestSubstring(""), // 0
+    findLongestSubstring("rithmschool"), // 7
+    findLongestSubstring("thisisawesome"), // 6
+    findLongestSubstring("thecatinthehat"), // 7
+    findLongestSubstring("bbbbbb"), // 1
+    findLongestSubstring("longestsubstring"), // 8
+    findLongestSubstring("thisishowwedoit") // 6
 )
