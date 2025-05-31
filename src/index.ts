@@ -1,22 +1,30 @@
-function findPair(arr: number[], diff: number): boolean {
-    arr.sort((a, b) => a - b)
-    let i = 0
-    let j = 1
+function maxSubarraySum(arr: number[], total: number): null|number {
+    if (arr.length < total) {
+        return null
+    }
+    let max = 0
 
-    while (i < arr.length && j < arr.length) {
-        
-        let difference = arr[j] - arr[i];
-        console.log(i, arr[i], arr[j], difference)
-        if (Math.abs(difference) === Math.abs(diff)) {
-            return true;
-        } else if (difference < diff) {
-            j++;
-        } else {
-            i++
+    for (let i = 0; i < total; i++) {
+        max += arr[i];
+    }
+
+    let temp = max;
+    for (let i = total; i < arr.length; i++) {
+        temp = temp - arr[i - total] + arr[i] 
+        if (temp > max) {
+            max = temp
         }
     }
 
-    return false
-}
 
-console.log(findPair([6,1,4,10,2,4], 2))
+    return max;
+}
+console.log(
+
+    maxSubarraySum([100,200,300,400], 2), // 700
+    maxSubarraySum([1,4,2,10,23,3,1,0,20], 4),  // 39 
+    maxSubarraySum([-3,4,0,-2,6,-1], 2), // 5
+    maxSubarraySum([3,-2,7,-4,1,-1,4,-2,1],2), // 5
+    maxSubarraySum([2,3], 3), // null
+    
+)
