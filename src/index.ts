@@ -26,3 +26,4 @@ console.log(
     findLongestSubstring("longestsubstring"), // 8
     findLongestSubstring("thisishowwedoit") // 6
 )
+
